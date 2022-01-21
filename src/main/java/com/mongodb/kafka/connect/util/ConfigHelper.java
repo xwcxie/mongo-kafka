@@ -85,6 +85,7 @@ public final class ConfigHelper {
       }
     }
   }
+
   public static FullDocument fromString(final String changeStreamFullDocument) {
     if (changeStreamFullDocument != null) {
       for (FullDocument fullDocument : FullDocument.values()) {
@@ -93,7 +94,8 @@ public final class ConfigHelper {
         }
       }
     }
-    throw new IllegalArgumentException(format("'%s' is not a valid ChangeStreamFullDocument", changeStreamFullDocument));
+    throw new IllegalArgumentException(
+        format("'%s' is not a valid ChangeStreamFullDocument", changeStreamFullDocument));
   }
 
   public static Optional<FullDocument> fullDocumentFromString(final String fullDocument) {

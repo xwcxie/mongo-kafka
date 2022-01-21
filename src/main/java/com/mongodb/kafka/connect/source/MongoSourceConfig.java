@@ -551,8 +551,7 @@ public class MongoSourceConfig extends AbstractConfig {
         ++orderInGroup,
         Width.MEDIUM,
         FULL_DOCUMENT_DISPLAY,
-        Validators.EnumValidatorAndRecommender.in(
-            FullDocument.values(), FullDocument::getValue));
+        Validators.EnumValidatorAndRecommender.in(FullDocument.values(), FullDocument::getValue));
 
     configDef.define(
         COLLATION_CONFIG,
