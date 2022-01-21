@@ -27,7 +27,7 @@ import static java.lang.String.format;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static java.util.stream.IntStream.rangeClosed;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.junit.jupiter.a.Assumptions.assumeTrue;
 
 import java.util.Arrays;
 import java.util.Properties;

@@ -94,7 +94,11 @@ public class MongoSinkTopicConfig extends AbstractConfig {
       "Optional, single sink collection name to write to. If following multiple topics then "
           + "this will be the default collection they are mapped to.";
   private static final String COLLECTION_DEFAULT = "";
-
+  public static final String SHARD_KEY = "collection.shard.keys";
+  public static final String SHARD_DEFAULT = "";
+  public static final String SHARD_KEY_DISPLAY = "The collection shard key";
+  public static final String SHARD_KEY_MAPPER_DOC =
+      "the value field to use shard mongo collection upsert";
   public static final String MAX_NUM_RETRIES_CONFIG = "max.num.retries";
   private static final String MAX_NUM_RETRIES_DISPLAY = "Max number of retries";
   private static final String MAX_NUM_RETRIES_DOC =
@@ -621,7 +625,16 @@ public class MongoSinkTopicConfig extends AbstractConfig {
         ++orderInGroup,
         ConfigDef.Width.MEDIUM,
         COLLECTION_DISPLAY);
-
+    configDef.define(
+        SHARD_KEY,
+        ConfigDef.Type.STRING,
+        SHARD_DEFAULT,
+        Importance.MEDIUM,
+        SHARD_KEY_MAPPER_DOC,
+        group,
+        ++orderInGroup,
+        ConfigDef.Width.MEDIUM,
+        SHARD_KEY_DISPLAY);
     group = "Namespace mapping";
     orderInGroup = 0;
     configDef.define(

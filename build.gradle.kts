@@ -124,60 +124,60 @@ buildConfig {
 /*
  * Testing
  */
-sourceSets.create("integrationTest") {
-    java.srcDir("src/integrationTest/java")
-    resources.srcDir("src/integrationTest/resources")
-    compileClasspath += sourceSets["main"].output + configurations["testRuntimeClasspath"]
-    runtimeClasspath += output + compileClasspath + sourceSets["test"].runtimeClasspath
-}
-
-tasks.create("integrationTest", Test::class.java) {
-    description = "Runs the integration tests"
-    group = "verification"
-    testClassesDirs = sourceSets["integrationTest"].output.classesDirs
-    classpath = sourceSets["integrationTest"].runtimeClasspath
-    outputs.upToDateWhen { false }
-    mustRunAfter("test")
-}
-
-tasks.withType<Test> {
-    tasks.getByName("check").dependsOn(this)
-    useJUnitPlatform()
-    testLogging {
-        events("passed", "skipped", "failed")
-    }
-
-    systemProperties(mapOf("org.mongodb.test.uri" to System.getProperty("org.mongodb.test.uri", "")))
-
-    val jdkHome = project.findProperty("jdkHome") as String?
-    jdkHome.let {
-        val javaExecutablesPath = File(jdkHome, "bin/java")
-        if (javaExecutablesPath.exists()) {
-            executable = javaExecutablesPath.absolutePath
-        }
-    }
-
-    addTestListener(object : TestListener {
-        override fun beforeTest(testDescriptor: TestDescriptor?) {}
-        override fun beforeSuite(suite: TestDescriptor?) {}
-        override fun afterTest(testDescriptor: TestDescriptor?, result: TestResult?) {}
-        override fun afterSuite(d: TestDescriptor?, r: TestResult?) {
-            if (d != null && r != null && d.parent == null) {
-                val resultsSummary = """Tests summary:
-                    | ${r.testCount} tests,
-                    | ${r.successfulTestCount} succeeded,
-                    | ${r.failedTestCount} failed,
-                    | ${r.skippedTestCount} skipped""".trimMargin().replace("\n", "")
-
-                val border = "=".repeat(resultsSummary.length)
-                logger.lifecycle("\n$border")
-                logger.lifecycle("Test result: ${r.resultType}")
-                logger.lifecycle(resultsSummary)
-                logger.lifecycle("${border}\n")
-            }
-        }
-    })
-}
+// sourceSets.create("integrationTest") {
+//    java.srcDir("src/integrationTest/java")
+//    resources.srcDir("src/integrationTest/resources")
+//    compileClasspath += sourceSets["main"].output + configurations["testRuntimeClasspath"]
+//    runtimeClasspath += output + compileClasspath + sourceSets["test"].runtimeClasspath
+// }
+//
+// tasks.create("integrationTest", Test::class.java) {
+//    description = "Runs the integration tests"
+//    group = "verification"
+//    testClassesDirs = sourceSets["integrationTest"].output.classesDirs
+//    classpath = sourceSets["integrationTest"].runtimeClasspath
+//    outputs.upToDateWhen { false }
+//    mustRunAfter("test")
+// }
+//
+// tasks.withType<Test> {
+//    tasks.getByName("check").dependsOn(this)
+//    useJUnitPlatform()
+//    testLogging {
+//        events("passed", "skipped", "failed")
+//    }
+//
+//    systemProperties(mapOf("org.mongodb.test.uri" to System.getProperty("org.mongodb.test.uri", "")))
+//
+//    val jdkHome = project.findProperty("jdkHome") as String?
+//    jdkHome.let {
+//        val javaExecutablesPath = File(jdkHome, "bin/java")
+//        if (javaExecutablesPath.exists()) {
+//            executable = javaExecutablesPath.absolutePath
+//        }
+//    }
+//
+//    addTestListener(object : TestListener {
+//        override fun beforeTest(testDescriptor: TestDescriptor?) {}
+//        override fun beforeSuite(suite: TestDescriptor?) {}
+//        override fun afterTest(testDescriptor: TestDescriptor?, result: TestResult?) {}
+//        override fun afterSuite(d: TestDescriptor?, r: TestResult?) {
+//            if (d != null && r != null && d.parent == null) {
+//                val resultsSummary = """Tests summary:
+//                    | ${r.testCount} tests,
+//                    | ${r.successfulTestCount} succeeded,
+//                    | ${r.failedTestCount} failed,
+//                    | ${r.skippedTestCount} skipped""".trimMargin().replace("\n", "")
+//
+//                val border = "=".repeat(resultsSummary.length)
+//                logger.lifecycle("\n$border")
+//                logger.lifecycle("Test result: ${r.resultType}")
+//                logger.lifecycle(resultsSummary)
+//                logger.lifecycle("${border}\n")
+//            }
+//        }
+//    })
+// }
 
 /*
  * Code checking
