@@ -85,12 +85,22 @@ public final class ConfigHelper {
       }
     }
   }
+  public static FullDocument fromString(final String changeStreamFullDocument) {
+    if (changeStreamFullDocument != null) {
+      for (FullDocument fullDocument : FullDocument.values()) {
+        if (changeStreamFullDocument.equalsIgnoreCase(fullDocument.getValue())) {
+          return fullDocument;
+        }
+      }
+    }
+    throw new IllegalArgumentException(format("'%s' is not a valid ChangeStreamFullDocument", changeStreamFullDocument));
+  }
 
   public static Optional<FullDocument> fullDocumentFromString(final String fullDocument) {
     if (fullDocument.isEmpty()) {
       return Optional.empty();
     } else {
-      return Optional.of(FullDocument.fromString(fullDocument));
+      return Optional.of(fromString(fullDocument));
     }
   }
 
